@@ -40,21 +40,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent=new Intent(MainActivity.this,Main2Activity.class);
                 intent.putExtra(Main2Activity.KEY_RESULT, operand.toString());
 startActivityForResult(intent,1);
-
+            closeActivity();
             }
         });
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==1){
-            if (requestCode==RESULT_OK){
-                finish();
-            }
-
-        }
+    private void closeActivity() {
+        this.finish();
     }
+
 
     // сохранение состояния
     @Override
