@@ -39,10 +39,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,Main2Activity.class);
                 intent.putExtra(Main2Activity.KEY_RESULT, operand.toString());
-                startActivity(intent);
-                finish();
+startActivityForResult(intent,1);
+
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1){
+            if (requestCode==RESULT_OK){
+                finish();
+            }
+
+        }
     }
 
     // сохранение состояния
