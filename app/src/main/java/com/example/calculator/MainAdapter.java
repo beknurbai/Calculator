@@ -13,12 +13,15 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> {
 
-    List<String> data;
+    private ArrayList<String> data;
 
     public MainAdapter() {
         data = new ArrayList<>();
-        notifyDataSetChanged();
+    }
 
+    public void update(ArrayList<String> list){
+        data = list;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -40,10 +43,4 @@ public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> {
         return data.size();
     }
 
-
-    public void history(String s) {
-        if (data != null)
-            data.add(s);
-        notifyDataSetChanged();
-    }
 }

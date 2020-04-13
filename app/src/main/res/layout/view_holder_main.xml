@@ -9,7 +9,9 @@
         android:id="@+id/vh_text_view"
         android:textSize="35sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
+        android:text="fff"
+        android:textStyle="bold"
         tools:ignore="MissingConstraints" />
 
 

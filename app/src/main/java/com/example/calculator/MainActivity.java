@@ -38,24 +38,14 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String abc =resultField.getText().toString();
-                list.add(abc);
-
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                intent.putExtra(Main2Activity.KEY_RESULT, list);
-
-                Log.e("ololo", "list send" + list.size());
-                startActivityForResult(intent, 1);
-                closeActivity();
+                Intent intent = new Intent();
+                intent.putExtra("result",abc);
+                setResult(RESULT_OK,intent);
+                finish();
             }
         });
     }
-
-    private void closeActivity() {
-        this.finish();
-    }
-
 
     // сохранение состояния
     @Override

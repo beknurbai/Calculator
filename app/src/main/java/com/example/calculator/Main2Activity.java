@@ -1,5 +1,6 @@
 package com.example.calculator;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,10 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class Main2Activity extends AppCompatActivity {
-    static final String KEY_RESULT = "key_result";
-    MainAdapter adapter;
-    ArrayList<String> list;
-    String s;
+    private MainAdapter adapter;
+    private ArrayList<String> list;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,44 +26,39 @@ public class Main2Activity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         list = new ArrayList<>();
 
-
-        Intent intent = getIntent();
-        if (intent != null) {
-            list = intent.getStringArrayListExtra(KEY_RESULT);
-            Log.e("ololo", "list " + list);
-            adapter.data.add(String.valueOf(list));
-
-
-            Button button1 = findViewById(R.id.share);
-            button1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        Button button1 = findViewById(R.id.share);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (list.toString() !=null) {
                     Intent intent = new Intent();
                     intent.setAction(intent.ACTION_SEND);
                     intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_TEXT, list);
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        startActivity(intent);
-                    }
+                    intent.putExtra(Intent.EXTRA_TEXT, list.toString());
+                    startActivity(intent);
                 }
-            });
-        }
+            }
+        });
 
         Button button = findViewById(R.id.start);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-                startActivity(intent);
-closeActivity();
+                startActivityForResult(intent, 2);
+
             }
 
         });
     }
 
-    private void closeActivity() {
-
-        this.finish();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            list.add(0, data.getStringExtra("result"));
+            adapter.update(list);
+        }
     }
 }
 
